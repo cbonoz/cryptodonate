@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "recyclone web server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=prod node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbonoz/cryptodonate.git"
+  },
+  "keywords": [
+    "lightning",
+    "network",
+    "bitcoin",
+    "donate",
+    "blockstack"
+  ],
+  "author": "Chris Buonocore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cbonoz/cryptodonate/issues"
+  },
+  "homepage": "https://github.com/cbonoz/cryptodonate#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.8",
+    "custom-env": "^1.0.1",
+    "express": "^4.17.0",
+    "opennode": "^1.1.1"
+  }
+}
