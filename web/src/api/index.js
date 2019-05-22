@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-const baseURL = process.env.BASE_URL || "http://localhost:5000"
+const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:5000"
 
 const instance = axios.create({
   baseURL,
