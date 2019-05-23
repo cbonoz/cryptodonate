@@ -4,9 +4,9 @@ This project utilizes thecharitydb.org API, which can be accessed here: https://
 <br />
 A live version of the project can be viewable here: http://192.241.222.142:3001/
 <br />
-I have also set up a `GraphQL` backend for this project. Repo viewable here: https://github.com/ebui91/recyclone-graphQL-backend
+I have also set up a `GraphQL` backend for this project. Repo viewable here: https://github.com/ebui91/blockcharity-graphQL-backend
 
-![alt text](https://github.com/ebui91/recyclone/blob/master/src/assets/screenshots/main-view.png)
+![alt text](https://github.com/ebui91/blockcharity/blob/master/src/assets/screenshots/main-view.png)
 
 
 To run this application locally, you can also fork and clone this repository. 
@@ -31,7 +31,7 @@ You'll also need to request an API key from thecharitydb.org. Afterwards, you ca
 ```
 touch .env
 ```
-![alt text](https://github.com/ebui91/recyclone/blob/master/src/assets/screenshots/env.png)
+![alt text](https://github.com/ebui91/blockcharity/blob/master/src/assets/screenshots/env.png)
 
 ### Description ###
 The three Components for this project are: 
@@ -41,7 +41,7 @@ The three Components for this project are:
 
 I decided not to use Redux for this project because it was fairly small in scale, and managing state was not an issue with only three components. Component architecture is a little crowded. For example, the CharitiesList component could definitely be more compartmentalized and split up, but since there was a 3 component restriction, it ended up being a bit bigger than how I would normally structure my components.
 
-![alt text](https://github.com/ebui91/recyclone/blob/master/src/assets/screenshots/detailed-view.png)
+![alt text](https://github.com/ebui91/blockcharity/blob/master/src/assets/screenshots/detailed-view.png)
 
 The app itself is pretty simple. The sliders on the right hand side allow you filter charity results by genre, charity length, runtime, and rating (`Sliders.js`). There are two rows of data being displayed. The top row being the current charitys out in theatres, and the bottom row being charitys that are filtered by the search results (`CharitiesList.js`). 
 <br />
@@ -60,7 +60,7 @@ A quick rundown of some dependencies I used for this project:
 
 ### Unit Testing ###
 I implemented a few unit tests using Jest. The tests can be viewed in the functions.js and functions.test.js files, which are in the src/ directory.
-![alt text](https://github.com/ebui91/recyclone/blob/master/src/assets/screenshots/unit-tests.png)
+![alt text](https://github.com/ebui91/blockcharity/blob/master/src/assets/screenshots/unit-tests.png)
 
 
 ### Final Thoughts ###

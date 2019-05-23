@@ -164,7 +164,7 @@ export default class CharitiesList extends Component{
                 </div>
 
                 <div className="filters">
-                    <h1 id="recyclone">Recylclone</h1>
+                    <h1 id="blockcharity">Blockcharity</h1>
 
                     <div className="sliders-container">
                         {/* TODO: sidebar  */}

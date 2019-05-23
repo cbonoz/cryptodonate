@@ -146,11 +146,12 @@
     outline: none;
 }
 
-#recyclone{
+#blockcharity{
     margin: 0px;
     background: #E50914;
     font-family: BebaseNeue;
-    font-size: 3rem;
+    /* font-size: 3rem; */
+    font-size: 2rem;
     letter-spacing: 0.5rem;
     text-shadow: -1px 0 black, 0 1px black, 4px 0 black, 0 -1px black;
     padding: 5px;
@@ -172,6 +173,7 @@
     font-size: 14px;
     letter-spacing: 0.2rem;
     background: #E50914;
+    /* background: brown; */
     color: #F2F2F2;
     border: none;
     border-radius: 3px;
