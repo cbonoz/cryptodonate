@@ -15,7 +15,7 @@ app.use(bodyParser.json()) // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
 app.use(cors())
 
-const port = process.env.POST || 5000
+const port = process.env.HOST || 5000
 
 let donationData
 
