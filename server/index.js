@@ -34,6 +34,7 @@ app.get("/api/charities/:id", (req, res, next) => {
 app.post("/api/charge", async function(req, res) {
   const body = req.body
   const { email, amount, address, callback_url, success_url } = body
+
   if (!address || !email || !amount) {
     return res.status(400).send('address, email, and amount must be specified.')
   }
@@ -107,7 +108,7 @@ app.post("/events/charge", async function(req, res) {
 csv()
   .fromFile("./bitcoin_charities.csv")
   .then(jsonObj => {
-    console.log(jsonObj)
+    // console.log(jsonObj)
     donationData = jsonObj
 
     app.listen(port, async err => {

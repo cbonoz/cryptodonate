@@ -13,6 +13,11 @@
     src: url("./assets/fonts/Roboto/Roboto-Regular.ttf") format("opentype");
 }
 
+.centered {
+    margin: 0 auto;
+    text-align: center;
+}
+
 .App{
     background: #141414;
 }

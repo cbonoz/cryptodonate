@@ -10,7 +10,11 @@ const appConfig = new blockstack.AppConfig(['store_write', 'publish_data', 'emai
 const userSession = new blockstack.UserSession({ appConfig: appConfig })
 
 const getUser = () => {
-    return userSession.isUserSignedIn() ? new blockstack.Person(userSession.loadUserData().profile) : {}
+    const user = userSession.isUserSignedIn() ? userSession.loadUserData() : {}
+    if (Object.keys(user).length > 0) {
+        console.log('getUser', user)
+    }
+    return user
 }
 
 const login = () => {

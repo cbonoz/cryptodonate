@@ -167,8 +167,15 @@ export default class CharitiesList extends Component{
                     <h1 id="blockcharity">Blockcharity</h1>
 
                     <div className="sliders-container">
-                        {user && <div className='user-data'>
-                            {JSON.stringify(user)}
+                        {!user && <div className='user-data centered'>
+                            <br/>
+                            <p>Charitable deposits with Bitcoin <br/>powered by the lightning network</p>
+                            </div>}
+                        {user && <div className='user-data centered'>
+                            <h5>Logged in As:</h5>
+                            <p>{user.username}</p>
+                            <br/>
+                            <p>You can now make deposits!</p>
                         </div>}
                     </div>
 
