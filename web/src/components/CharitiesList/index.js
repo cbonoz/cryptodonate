@@ -21,12 +21,9 @@ export default class CharitiesList extends Component{
         this.pushRef = this.pushRef.bind(this);
     }
 
-    async componentWillMount() {
-        console.log('hi')
-    }
-
     // API call to generate currently popular charities each time the component mounts.
     async componentDidMount(){
+        this.props.handlePending()
         this.setState({user: this.props.getUser()})
         const charities = await getCharities()
         this.setState({ charityList: charities.data.data });

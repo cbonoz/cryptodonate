@@ -19,6 +19,15 @@ const getUser = () => {
     return user
 }
 
+const handlePending = () => {
+    if (userSession.isSignInPending()) {
+        userSession.handlePendingSignIn().then(function(userData) {
+          console.log('userData', JSON.stringify(userData))
+          window.location = window.location.origin
+        })
+    }
+}
+
 const login = () => {
     if (userSession.isSignInPending()) {
         userSession.handlePendingSignIn().then(function(userData) {
@@ -37,7 +46,7 @@ const logout = () => {
 export default(
     <BrowserRouter>
         <Switch>
-            <Route component={props => <CharitiesList getUser={getUser} login={login} logout={logout} {...props} />} exact path= "/" />
+            <Route component={props => <CharitiesList handlePending={handlePending} getUser={getUser} login={login} logout={logout} {...props} />} exact path= "/" />
             <Route component={props => <CharityInfo getUser={getUser} login={login} {...props} /> } path="/charities/:id" />
         </Switch>
     </BrowserRouter>
