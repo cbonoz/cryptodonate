@@ -173,8 +173,8 @@ export default class CharitiesList extends Component{
                             <p>Charitable deposits with Bitcoin <br/>powered by the lightning network</p>
                             </div>}
                         {hasUser && <div className='user-data centered'>
-                            <h5>Logged in As:</h5>
-                            <p>{user.username}</p>
+                            <h5>Logged in as:</h5>
+                            <p>{user.username.split('.')[0]}</p>
                             <br/>
                             <p>You can now make deposits!</p>
                         </div>}
