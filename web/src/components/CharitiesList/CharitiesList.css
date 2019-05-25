@@ -164,6 +164,14 @@
     padding: 10px;
 }
 
+.backdrop-container {
+    background-position: center !important;
+}
+
+.user-data {
+    max-width: 400px;
+}
+
 .btn{
     margin: auto;
     height: 35px;

@@ -167,7 +167,9 @@ export default class CharitiesList extends Component{
                     <h1 id="blockcharity">Blockcharity</h1>
 
                     <div className="sliders-container">
-                        {/* TODO: sidebar  */}
+                        {user && <div className='user-data'>
+                            {JSON.stringify(user)}
+                        </div>}
                     </div>
 
                 {!hasUser && <button onClick={ () => this.login() } className="btn submit-btn">Login</button>}

@@ -6,7 +6,7 @@ import CharitiesList from "../src/components/CharitiesList";
 import CharityInfo from "../src/components/CharityInfo";
 import * as blockstack from 'blockstack'
 
-const appConfig = new blockstack.AppConfig()
+const appConfig = new blockstack.AppConfig(['store_write', 'publish_data', 'email'])
 const userSession = new blockstack.UserSession({ appConfig: appConfig })
 
 const getUser = () => {
@@ -16,6 +16,7 @@ const getUser = () => {
 const login = () => {
     if (userSession.isSignInPending()) {
         userSession.handlePendingSignIn().then(function(userData) {
+          console.log('userData', JSON.stringify(userData))
           window.location = window.location.origin
         })
         return

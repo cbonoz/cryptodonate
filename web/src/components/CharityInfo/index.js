@@ -52,11 +52,8 @@ export default class CharityInfo extends Component {
     window.removeEventListener("resize", this.updateWindowDimensions)
   }
 
-  async donate(user, amount, address) {
-    if (!user) {
-      user = this.props.getUser()
-      this.setState({ user })
-    }
+  async donate(amount, address) {
+    const user = this.props.getUser()
 
     if (!user) {
       alert("Session expired, please login again")
@@ -74,6 +71,7 @@ export default class CharityInfo extends Component {
       alert("Submitted donation to %s for %f", address, amount)
     } catch (e) {
       console.error("error submitting donation", e)
+      alert(`Error submitting deposit: ${e}`)
     }
   }
 
@@ -157,7 +155,7 @@ export default class CharityInfo extends Component {
                   <br/>
                 <br />
                   <button
-                    onClick={() => this.donate(user, amount, charity.address)}
+                    onClick={() => this.donate(amount, charity.address)}
                     className="btn"
                   >
                     Donate Bitcoin
