@@ -4,14 +4,14 @@ const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:5000"
 
 const instance = axios.create({
   baseURL,
-  timeout: 3000
+  timeout: 15000
 })
 
 export const getCharities = async function() {
   return instance.get("/api/charities")
 }
 
-export const isEmpty = (obj) => typeof(obj) === 'object' && Object.keys(obj).length == 0
+export const isEmpty = (obj) => (typeof(obj) === 'object' && Object.keys(obj).length == 0) || typeof(obj) !== 'object'
 
 export const postCharge = async function(email, amount, address) {
   const body = {

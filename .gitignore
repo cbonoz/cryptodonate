@@ -6,6 +6,8 @@ npm-debug.log*
 example/
 server/node_modules
 server/.env
+server/.env.prod
+.env.prod
 web/node_modules
 web/.env
 

@@ -8,7 +8,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "localhost:3000",
+  "start_url": "http://blockcharity-app.herokuapp.com",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

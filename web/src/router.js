@@ -6,7 +6,9 @@ import CharitiesList from "../src/components/CharitiesList";
 import CharityInfo from "../src/components/CharityInfo";
 import * as blockstack from 'blockstack'
 
-const appConfig = new blockstack.AppConfig(['store_write', 'publish_data', 'email'])
+const url = 'localhost:3000'
+const scopes = ['store_write', 'publish_data', 'email']
+const appConfig = new blockstack.AppConfig()//, url, url, '../public')
 const userSession = new blockstack.UserSession({ appConfig: appConfig })
 
 const getUser = () => {
@@ -41,3 +43,4 @@ export default(
     </BrowserRouter>
 )
 
+// 9b87e35b-249a-43c0-9d26-e28bc721eef1

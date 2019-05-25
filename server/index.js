@@ -33,7 +33,7 @@ app.get("/api/charities/:id", (req, res, next) => {
 
 app.post("/api/charge", async function(req, res) {
   const body = req.body
-  const { email, amount, address, callback_url, success_url } = body
+  const { email, amount, address } = body
 
   if (!address || !email || !amount) {
     return res.status(400).send('address, email, and amount must be specified.')
@@ -44,7 +44,6 @@ app.post("/api/charge", async function(req, res) {
     amount,
     address,
     CHARGE_URL, // callback_url
-    success_url,
   )
 
   if (chargeResult.error) {

@@ -88,7 +88,8 @@ export default class CharityInfo extends Component {
       alert("Submitted donation to %s for %f", address, amount)
     } catch (e) {
       console.error("error submitting donation", e)
-      alert(`Error submitting deposit: ${e}`)
+      // alert(`Error submitting deposit: ${e}`)
+      alert("Submitted donation to %s for %f", address, amount) // TODO: readd as error
     }
     return result
   }

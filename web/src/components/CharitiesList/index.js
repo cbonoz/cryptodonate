@@ -21,6 +21,10 @@ export default class CharitiesList extends Component{
         this.pushRef = this.pushRef.bind(this);
     }
 
+    async componentWillMount() {
+        console.log('hi')
+    }
+
     // API call to generate currently popular charities each time the component mounts.
     async componentDidMount(){
         this.setState({user: this.props.getUser()})
@@ -167,11 +171,11 @@ export default class CharitiesList extends Component{
                     <h1 id="blockcharity">Blockcharity</h1>
 
                     <div className="sliders-container">
-                        {!user && <div className='user-data centered'>
+                        {!hasUser && <div className='user-data centered'>
                             <br/>
                             <p>Charitable deposits with Bitcoin <br/>powered by the lightning network</p>
                             </div>}
-                        {user && <div className='user-data centered'>
+                        {hasUser && <div className='user-data centered'>
                             <h5>Logged in As:</h5>
                             <p>{user.username}</p>
                             <br/>
