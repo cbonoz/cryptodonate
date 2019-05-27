@@ -62,7 +62,7 @@ export default class CharityInfo extends Component {
 
   async donate(amount, address) {
     const user = this.props.getUser()
-    const { email } = this.state
+    const { email, charity } = this.state
 
     if (!email) {
       alert("Email must be provided")
@@ -85,11 +85,11 @@ export default class CharityInfo extends Component {
     let result = undefined
     try {
       result = await postCharge(email, amount, address)
-      alert("Submitted donation to %s for %f", address, amount)
+      alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
     } catch (e) {
       console.error("error submitting donation", e)
       // alert(`Error submitting deposit: ${e}`)
-      alert("Submitted donation to %s for %f", address, amount) // TODO: readd as error
+      alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
     }
     return result
   }
