@@ -7,8 +7,9 @@ import { Button, Form, Modal } from "react-bootstrap"
 
 import "./CharityInfo.css"
 import { getCharityById, postCharge, isEmpty } from "../../api"
-
 import "./../../../node_modules/video-react/dist/video-react.css"
+
+const OPEN_NODE_REDIRECT = `https://checkout.opennode.co`
 
 export default class CharityInfo extends Component {
   constructor(props) {
@@ -85,10 +86,17 @@ export default class CharityInfo extends Component {
     let result = undefined
     try {
       result = await postCharge(email, amount, address)
-      alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
+      const data = result.data
+      // alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
+      if (data && data.id) {
+        alert(`Complete your donation`)
+        window.location.href = `${OPEN_NODE_REDIRECT}/${data.id}`
+      } else {
+        alert(`Error submitting deposit, donation response:  ${JSON.stringify(result)}`)
+      }
     } catch (e) {
       console.error("error submitting donation", e)
-      // alert(`Error submitting deposit: ${e}`)
+      alert(`Error submitting deposit: ${e}`)
       alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
     }
     return result

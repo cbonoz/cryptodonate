@@ -1,15 +1,15 @@
 const opennode = require("opennode")
 const axios = require("axios")
+const uuidv4 = require('uuid/v4');
 
-const INVOICE_KEY =
-  process.env.INVOICE_KEY || "9b87e35b-249a-43c0-9d26-e28bc721eef1"
+
+const INVOICE_KEY = process.env.INVOICE_KEY
 if (!INVOICE_KEY) {
   console.error("INVOICE_KEY env variable required to run server")
   process.exit()
 }
 
-const WITHDRAW_KEY =
-  process.env.WITHDRAW_KEY || "9b87e35b-249a-43c0-9d26-e28bc721eef1"
+const WITHDRAW_KEY = process.env.WITHDRAW_KEY
 if (!WITHDRAW_KEY) {
   console.error("WITHDRAW_KEY env variable required to run server")
   process.exit()
@@ -31,26 +31,26 @@ function createInstance(key = "", environment = "live") {
 }
 
 module.exports = {
-  createCharge: async function(customer_email, amount, address, callback_url) {
-    let charge
-    let error
+  createCharge: async function(customer_email, amount, address, callback_url, success_url) {
     try {
       const description = `Donate ${amount} to ${address}`
-      const data = {
+      const body = {
         description,
         amount,
         customer_email,
         callback_url,
+        success_url,
         currency: "USD",
-        auto_settle: false
+        auto_settle: false,
+        order_id: uuidv4()
       }
-      console.log("data", data)
-      charge = createInstance(INVOICE_KEY).post("/charges", data)
-    } catch (err) {
-      error = err
-      console.error(`${error.status} | ${error.message}`)
+      console.log("body", body)
+      const charge = await createInstance(INVOICE_KEY).post("/charges", body)
+      return { data: charge.data.data }
+    } catch (error) {
+      console.error(`${error.status} || ${error.message}`)
+      return { error }
     }
-    return { data: charge, error: error }
   },
 
   withdrawlToAddress: async function(address, amount, callback_url) {
@@ -66,12 +66,12 @@ module.exports = {
     let error
     try {
       opennode.setCredentials(WITHDRAW_KEY, "live") //if no parameter given, default environment is 'live'
-      withdrawal = opennode.initiateWithdrawalAsync(payload)
-    } catch (err) {
-      error = err
+      const withdrawal = await opennode.initiateWithdrawalAsync(payload)
+      return { data: withdrawal.data, error: error }
+    } catch (error) {
       console.error(`${error.status} | ${error.message}`)
+      return { error }
     }
-    return { data: withdrawal, error: error }
   },
 
   getChargeInfo: async function(chargeId) {

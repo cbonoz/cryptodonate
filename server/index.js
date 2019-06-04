@@ -7,8 +7,10 @@ customEnv.env(true)
 
 const helper = require("./helper")
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:5000'
+const BASE_URL = process.env.BASE_URL || "http://localhost:5000"
 const CHARGE_URL = `${BASE_URL}/events/charge`
+
+const WEB_URL = `blockcharity.space`
 
 const app = express()
 app.use(bodyParser.json()) // support json encoded bodies
@@ -25,10 +27,10 @@ app.get("/api/charities", function(req, res) {
 
 // Get charity details for specific charity.
 app.get("/api/charities/:id", (req, res, next) => {
-   const id = req.params.id
-   const data = donationData.find(c => c.id === id)
-   console.log('match', data)
-   return res.json(data)
+  const id = req.params.id
+  const data = donationData.find(c => c.id === id)
+  console.log("match", data)
+  return res.json(data)
 })
 
 app.post("/api/charge", async function(req, res) {
@@ -36,7 +38,7 @@ app.post("/api/charge", async function(req, res) {
   const { email, amount, address } = body
 
   if (!address || !email || !amount) {
-    return res.status(400).send('address, email, and amount must be specified.')
+    return res.status(400).send("address, email, and amount must be specified.")
   }
 
   const chargeResult = await helper.createCharge(
@@ -44,13 +46,15 @@ app.post("/api/charge", async function(req, res) {
     amount,
     address,
     CHARGE_URL, // callback_url
+    `${WEB_URL}/charities/${address}` // success_url (back to the charity page)
   )
 
   if (chargeResult.error) {
     return res.status(500).send(chargeResult.error)
   }
-})
 
+  return res.status(200).json(chargeResult.data)
+})
 
 app.post("/api/charge/info", async function(req, res) {
   const body = req.body
@@ -60,10 +64,9 @@ app.post("/api/charge/info", async function(req, res) {
   return res.json(data)
 })
 
-
 // webhook for receiving completed charge events
 app.post("/events/charge", async function(req, res) {
-  const { 
+  const {
     id,
     callback_url,
     success_url,
@@ -76,13 +79,13 @@ app.post("/events/charge", async function(req, res) {
     hashed_order
   } = req.body
 
-  const tokens = description.split(' ')
+  const tokens = description.split(" ")
   const address = tokens[tokens.length - 1] // expect: "Send .... to XXX"
   const amount = price
 
-  console.log('event', 'charge', status, description, amount, address)
+  console.log("event", "charge", status, description, amount, address)
 
-  if (status !== 'paid') {
+  if (status !== "paid") {
     // don't send the withdrawl until paid status achieved.
     return res.status(200)
   }
@@ -104,8 +107,10 @@ app.post("/events/charge", async function(req, res) {
 })
 
 // Read the config (charity) csv and start the server.
+const fileName = `./bitcoin_charities.csv`
+console.log("charities", fileName)
 csv()
-  .fromFile("./bitcoin_charities.csv")
+  .fromFile(fileName)
   .then(jsonObj => {
     // console.log(jsonObj)
     donationData = jsonObj
