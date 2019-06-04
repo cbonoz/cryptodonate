@@ -97,7 +97,6 @@ export default class CharityInfo extends Component {
     } catch (e) {
       console.error("error submitting donation", e)
       alert(`Error submitting deposit: ${e}`)
-      alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
     }
     return result
   }
@@ -105,6 +104,7 @@ export default class CharityInfo extends Component {
   async handleDonate(amount, address) {
     this.setState({ show: false })
     const result = await this.donate(amount, address)
+    return result
   }
 
   handleClose() {
