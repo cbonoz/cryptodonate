@@ -89,7 +89,7 @@ export default class CharityInfo extends Component {
       const data = result.data
       // alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
       if (data && data.id) {
-        alert(`Complete your donation`)
+        // alert(`Complete your donation`)
         window.location.href = `${OPEN_NODE_REDIRECT}/${data.id}`
       } else {
         alert(`Error submitting deposit, donation response:  ${JSON.stringify(result)}`)
