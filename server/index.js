@@ -9,6 +9,8 @@ const helper = require("./helper")
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:5000"
 const CHARGE_URL = `${BASE_URL}/events/charge`
+const WITHDRAW_URL = `${BASE_URL}/events/withdraw`
+
 
 const WEB_URL = `https://blockcharity.space`
 
@@ -64,6 +66,12 @@ app.post("/api/charge/info", async function(req, res) {
   return res.json(data)
 })
 
+app.post("/events/withdraw", async function(req, res) {
+  const body = req.body
+  console.log('submitted withdrawl', body)
+  return res.status(200).json(body)
+})
+
 // webhook for receiving completed charge events
 app.post("/events/charge", async function(req, res) {
   const {
@@ -95,7 +103,7 @@ app.post("/events/charge", async function(req, res) {
     address,
     amount,
     description,
-    callback_url,
+    WITHDRAW_URL,
     success_url
   )
 

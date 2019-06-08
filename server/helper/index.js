@@ -61,7 +61,7 @@ module.exports = {
 
   withdrawlToAddress: async function(address, amount, description, callback_url, success_url) {
     const body = {
-      type: "ln",
+      type: "chain",
       description,
       address,
       amount,
