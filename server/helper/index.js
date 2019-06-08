@@ -59,13 +59,14 @@ module.exports = {
     }
   },
 
-  withdrawlToAddress: async function(address, amount, callback_url) {
+  withdrawlToAddress: async function(address, amount, description, callback_url, success_url) {
     const body = {
       type: "ln",
       description,
       address,
       amount,
-      callback_url
+      callback_url,
+      success_url
     }
     console.log("body", body)
 
@@ -74,7 +75,7 @@ module.exports = {
       const withdrawal = await opennode.initiateWithdrawalAsync(body)
       return { data: withdrawal.data.data }
     } catch (error) {
-      console.error(`${error.status} | ${error.message}`)
+      console.error(`withdraw error`, `${error.status} | ${error.message}`)
       return { error }
     }
   },

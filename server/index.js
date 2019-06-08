@@ -92,8 +92,9 @@ app.post("/events/charge", async function(req, res) {
 
   // Received the charge credit, now forward to the listed address
   const withdrawResult = await helper.withdrawlToAddress(
-    amount,
     address,
+    amount,
+    description,
     callback_url,
     success_url
   )
