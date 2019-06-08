@@ -10,7 +10,7 @@ const helper = require("./helper")
 const BASE_URL = process.env.BASE_URL || "http://localhost:5000"
 const CHARGE_URL = `${BASE_URL}/events/charge`
 
-const WEB_URL = `blockcharity.space`
+const WEB_URL = `https://blockcharity.space`
 
 const app = express()
 app.use(bodyParser.json()) // support json encoded bodies
@@ -46,7 +46,7 @@ app.post("/api/charge", async function(req, res) {
     amount,
     address,
     CHARGE_URL, // callback_url
-    `${WEB_URL}/charities/${address}` // success_url (back to the charity page)
+    WEB_URL // success_url (back to the charity page)
   )
 
   if (chargeResult.error) {

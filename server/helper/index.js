@@ -37,7 +37,7 @@ module.exports = {
     callback_url,
     success_url
   ) {
-    const description = `Donate ${amount} to ${address}`
+    const description = `Donate $${amount} to ${address}`
     const body = {
       description,
       amount,
