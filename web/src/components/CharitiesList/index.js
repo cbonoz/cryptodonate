@@ -47,8 +47,8 @@ class CharitiesList extends Component{
                         donations[charityName] = 0.0
                     }
                     donations[charityName] = parseFloat(donations[charityName]) + parseFloat(amount)
-                    history.push('/')
                     await putDonationsFile(donations)
+                    history.push('/')
                 }
             } catch (e) {
                 file = undefined
