@@ -13,9 +13,9 @@ export const getCharities = async function() {
 
 export const isEmpty = (obj) => (typeof(obj) === 'object' && Object.keys(obj).length == 0) || typeof(obj) !== 'object'
 
-export const postCharge = async function(email, amount, address) {
+export const postCharge = async function(email, amount, address, charityName) {
   const body = {
-      email, amount, address
+      email, amount, address, charityName
   }
   return instance.post("/api/charge", body)
 }

@@ -37,10 +37,10 @@ app.get("/api/charities/:id", (req, res, next) => {
 
 app.post("/api/charge", async function(req, res) {
   const body = req.body
-  const { email, amount, address } = body
+  const { email, amount, address, charityName } = body
 
-  if (!address || !email || !amount) {
-    return res.status(400).send("address, email, and amount must be specified.")
+  if (!address || !email || !amount || !charityName) {
+    return res.status(400).send("address, email, charityName, and amount must be specified.")
   }
 
   const chargeResult = await helper.createCharge(
@@ -48,7 +48,7 @@ app.post("/api/charge", async function(req, res) {
     amount,
     address,
     CHARGE_URL, // callback_url
-    WEB_URL // success_url (back to the charity page)
+    `${WEB_URL}?charityName=${charityName}&amount=${amount}` // success_url (back to the charity page)
   )
 
   if (chargeResult.error) {

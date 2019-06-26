@@ -63,6 +63,8 @@ export default class CharityInfo extends Component {
 
   async donate(amount, address) {
     const user = this.props.getUser()
+
+    const { getDonationsFile, putDonationsFile } = this.props
     const { email, charity } = this.state
 
     if (!email) {
@@ -85,7 +87,7 @@ export default class CharityInfo extends Component {
     this.setState({email: '', show: false})
     let result = undefined
     try {
-      result = await postCharge(email, amount, address)
+      result = await postCharge(email, amount, address, charity.original_title)
       const data = result.data
       // alert(`Submitted donation to ${charity.original_title} (${address}) for $${amount} (paid in BTC)!`)
       if (data && data.id) {

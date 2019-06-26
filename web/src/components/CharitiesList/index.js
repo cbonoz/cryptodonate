@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router'
 import { CSSTransitionGroup } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import queryString from 'query-string'
 import hover from "./hover.js";
 import "./CharitiesList.css";
 import { getCharities, isEmpty } from "../../api/index.js";
+import { UserSession } from "blockstack";
 
 
-export default class CharitiesList extends Component{
+class CharitiesList extends Component{
     constructor(props){
         super(props);
 
@@ -15,6 +18,7 @@ export default class CharitiesList extends Component{
             charityList: [],
             resultList: [],
             page: 1,
+            donations: {}
         }
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
@@ -23,10 +27,34 @@ export default class CharitiesList extends Component{
 
     // API call to generate currently popular charities each time the component mounts.
     async componentDidMount(){
+        const { getDonationsFile, putDonationsFile, history } = this.props
         this.props.handlePending()
-        this.setState({user: this.props.getUser()})
+        const user = this.props.getUser()
         const charities = await getCharities()
-        this.setState({ charityList: charities.data.data });
+        this.setState({ user: user, charityList: charities.data.data });
+
+        if (user) {
+            let file = undefined
+            let donations = {}
+            try {
+                // attempt to save the current query param
+                file = await getDonationsFile()
+                donations = JSON.parse(file || '{}')
+                const values = queryString.parse(this.props.location.search)
+                const { charityName, amount } = values
+                if (charityName && amount) {
+                    if (!donations.hasOwnProperty(charityName)) {
+                        donations[charityName] = 0.0
+                    }
+                    donations[charityName] = parseFloat(donations[charityName]) + parseFloat(amount)
+                    history.push('/')
+                    await putDonationsFile(donations)
+                }
+            } catch (e) {
+                file = undefined
+            }
+            this.setState({donations})
+        }
     }
 
     // Pushing DOM element atrributes as a ref into external file so I can use the data.
@@ -67,7 +95,8 @@ export default class CharitiesList extends Component{
     }
 
     render() {
-        const { charityList, resultList, user} = this.state
+        const { charityList, resultList, donations, user} = this.state
+        const donatedCharities = Object.keys(donations)
 
         const hasUser = !isEmpty(user)
 
@@ -177,6 +206,13 @@ export default class CharitiesList extends Component{
                             <p>{user.username.split('.')[0]}</p>
                             <br/>
                             <p>You can now make deposits!</p>
+                            <hr/>
+                            {donatedCharities.length > 0 && <div>
+                                <p>We appreciate your past donations<hr/></p>
+                                {donatedCharities.map((c, i) => {
+                                    return <li key={i}>{c}: ${parseFloat(donations[c]).toFixed(2)}</li>
+                                })}
+                            </div>}
                         </div>}
                     </div>
 
@@ -187,3 +223,5 @@ export default class CharitiesList extends Component{
         )
     }
 }
+
+export default withRouter(CharitiesList)
